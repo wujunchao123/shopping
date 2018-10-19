@@ -5,6 +5,63 @@
     <title>店铺详情页面</title>
 </head>
 <body>
-
+    <h1>店铺详情页面</h1>
+    <table border="1">
+        <tr>
+            <td>店铺头像</td>
+            <td><img src="/{{store.cover}}" alt="头像"></td>
+        </tr>
+        <tr>
+            <td>店铺名称</td>
+            <td>{{store.name}}</td>
+        </tr>
+        <tr>
+            <td>店铺介绍</td>
+            <td>{{store.intro}}</td>
+        </tr>
+        <tr>
+            <td>店铺状态</td>
+            <td>
+                {% if store.status == 0 %}
+                    <p>正在营业</p>
+                    <a href="{% url 'stores:change' store.id 1 %}">暂停营业</a>
+                    <a href="{% url 'stores:change' store.id 2 %}">删除店铺</a>
+                {% elif store.status == 1 %}
+                    <p>暂停营业</p>
+                    <a href="{% url 'stores:change' store.id 0 %}">开始营业</a>
+                    <a href="{% url 'stores:change' store.id 2 %}">删除店铺</a>
+                {% elif store.status == 2 %}
+                    <p>店铺已经被删除，请联系管理员</p>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>操作</td>
+            <td><a href="{% url 'stores:update' store.id %}">修改店铺信息</a></td>
+        </tr>
+    </table>
+    <hr>
+    <!--<h1>上架商品</h1>-->
+    <!--<form action="#" method="post" >-->
+        <!--{% csrf_token %}-->
+        <!--商品名称：<input type="text" name="name" id="name"> <br>-->
+        <!--商品单价：<input type="number" name="price"> <br>-->
+        <!--商品库存：<input type="number" name="stock"> <br>-->
+        <!--<input type="hidden" name="store" value="{{store.id}}"> <br>-->
+        <!--商品图片：<input type="file" name="cover"><button>继续添加</button> <br>-->
+        <!--商品类型：-->
+            <!--<select name="type1" id="type1">-->
+                <!--<option value="-1">请选择一级类型</option>-->
+                <!--{% for t in type1 %}-->
+                <!--<option value="{{t.id}}">{{t.name}}</option>-->
+                <!--{% endfor %}-->
+            <!--</select>-->
+            <!--<select name="type2" id="type2">-->
+                <!--{% for t in type2 %}-->
+                <!--<option value="{{t.id}}">{{t.name}}</option>-->
+                <!--{% endfor %}-->
+            <!--</select>-->
+        <!--商品介绍：<textarea name="intro" id="intro" cols="30" rows="10"></textarea> <br>-->
+    <!--</form>-->
 </body>
 </html>

@@ -9,7 +9,7 @@ urlpatterns = [
 	# 查询店铺
 	url(r"^list/$", views.list, name="list"),
 	# 修改店铺
-	url(r"^update/$", views.update, name="update"),
+	url(r"^(?P<s_id>\d+)/update/$", views.update, name="update"),
 	# 店铺详情
 	url(r"^(?P<s_id>\d+)/detail/$", views.detail, name="detail"),
 	# 关闭店铺

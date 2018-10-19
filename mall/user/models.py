@@ -15,7 +15,7 @@ class UserInfo(models.Model):
     # 用户性别
     gender = models.CharField(max_length=10, default='男', verbose_name="用户性别")
     # 用户头像
-    header = models.ImageField(upload_to="static/ima/tou_img", default="static/img/tou_img/default.png", verbose_name="用户头像")
+    header = models.ImageField(upload_to="static/img/tou_img", default="static/img/tou_img/default.png", verbose_name="用户头像")
     # 联系电话
     phone = models.CharField(max_length=50, default='11111111111', verbose_name="联系方式")
 

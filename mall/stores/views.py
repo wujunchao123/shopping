@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET
+
 from . import models
+from goods.models import GoodsType
 
 
 #增加店铺
 @login_required()
 def add(request):
-	if request.mthod == "GET":
-		return render(request, "store/add.html", {})
+	if request.method == "GET":
+		return render(request, "stores/add.html", {})
 	else:
 		name = request.POST["name"].strip()
 		intro = request.POST["intro"].strip()
@@ -20,24 +22,23 @@ def add(request):
 			store = models.Stores(name=name, intro=intro, user=request.user)
 		store.save()
 
-		return redirect(reverse("store:detail", kwargs={"s_id": store.id}))
+		return redirect(reverse("stores:detail", kwargs={"s_id": store.id}))
 
 
 #查询店铺
 @require_GET
 @login_required()
 def list(request):
-	stores = models.Stores.objects.filter(user=request.user, status_int=[0, 1])
-	return render(request, "store/list.html", {"stores": stores})
+	stores = models.Stores.objects.filter(user=request.user, status__in=[0, 1])
+	return render(request, "stores/list.html", {"stores": stores})
 
 
 #修改店铺
-@require_GET
 @login_required()
 def update(request, s_id):
-	if request.mthod == "GET":
+	if request.method == "GET":
 		store = models.Stores.objects.get(pk=s_id)
-		return render(request, "store/update.html", {"store":store})
+		return render(request, "stores/update.html", {"store":store})
 	else:
 		name = request.POST["name"].strip()
 		intro = request.POST["intro"].strip()
@@ -45,7 +46,6 @@ def update(request, s_id):
 		store = models.Stores.objects.get(pk=s_id)
 		store.name = name
 		store.intro = intro
-
 		try:
 			cover = request.FILES["cover"]
 			store.cover = cover
@@ -53,7 +53,7 @@ def update(request, s_id):
 			pass
 		store.save()
 
-		return redirect(reverse("store:detail", kwargs={"s_id": store.id}))
+		return redirect(reverse("stores:detail", kwargs={"s_id": store.id}))
 
 
 
@@ -62,7 +62,8 @@ def update(request, s_id):
 @login_required()
 def detail(request, s_id):
 	store = models.Stores.objects.get(pk=s_id)
-	return render(request, "store/detail.html", {"store": store})
+	# type1 = GoodsType.objects.filter(parent__isnull=True)
+	return render(request, "stores/detail.html", {"store": store})#, "type1":type1})
 
 
 #关闭店铺
@@ -73,6 +74,6 @@ def change(request, s_id, status):
 	store.status = int(status)
 	store.save()
 	if store == 2:
-		return redirect(reverse("store:list"))
+		return redirect(reverse("stores:list"))
 	else:
-		return render(request, "store/detail.html", {"store": store})
+		return render(request, "stores/detail.html", {"store": store})
