@@ -14,10 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^user/', include('user.urls'))
 """
 from django.conf.urls import include
-from django.contrib import admin
 from django.conf.urls import url
+from django.conf.urls import include
+from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^user/', include("user.urls", namespace='user')),
+	url(r"^goods/", include("goods.urls", namespace="goods")),
+	url(r"^commons/", include("commons.urls", namespace="commons")),
+	url(r"^stores/", include("stores.urls", namespace="stores")),
 ]

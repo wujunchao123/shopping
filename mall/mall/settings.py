@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+	'stores',
+	'goods',
+	'commons',
     'user'
 ]
 
@@ -136,5 +139,3 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 # 随意添加一个MD5盐值
 MD5_SALT = "chaominghao"
-
-
