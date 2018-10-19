@@ -1,7 +1,7 @@
 from django.db import models
 
 # 导入店铺
-from stores.models import Store
+from stores.models import Stores
 
 
 #商品类型模块
@@ -16,7 +16,7 @@ class GoodsType(models.Model):
 	# 商品类型关联
 	goodType = models.ForeignKey("self", null=True, blank=True, verbose_name="父级类型", on_delete=models.CASCADE)
 	# 备用1
-	ready1 = models.CharField(null=True, blank=True, verbose_name="备用字段1")
+	ready1 = models.CharField(max_length=255, null=True, blank=True, verbose_name="备用字段1")
 	# 备用2
 	ready2 = models.IntegerField(null=True, blank=True, verbose_name="备用字段2")
 
@@ -37,11 +37,11 @@ class Goods(models.Model):
 	# 商品描述
 	intro = models.TextField(verbose_name="商品描述")
 	# 所属店铺
-	store = models.ForeignKey(Store, on_delete=models.CASCADE, verbose_name="商品所属店铺")
+	store = models.ForeignKey(Stores, on_delete=models.CASCADE, verbose_name="商品所属店铺")
 	# 所属类型
 	goodsType = models.ForeignKey(GoodsType, on_delete=models.CASCADE, verbose_name="商品所属类型")
 	# 备用1
-	ready1 = models.CharField(null=True, blank=True, verbose_name="备用字段1")
+	ready1 = models.CharField(max_length=255, null=True, blank=True, verbose_name="备用字段1")
 	# 备用2
 	ready2 = models.IntegerField(null=True, blank=True, verbose_name="备用字段2")
 
@@ -58,6 +58,6 @@ class GoodsImage(models.Model):
 	# 所属商品
 	goods = models.ForeignKey(Goods, on_delete=models.CASCADE, verbose_name="所属商品")
 	# 备用1
-	ready1 = models.CharField(null=True, blank=True, verbose_name="备用字段1")
+	ready1 = models.CharField(max_length=255, null=True, blank=True, verbose_name="备用字段1")
 	# 备用2
 	ready2 = models.IntegerField(null=True, blank=True, verbose_name="备用字段2")

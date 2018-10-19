@@ -19,5 +19,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-	url(r"^goods/", include("goods.urls", namespace="goods"))
+	url(r"^goods/", include("goods.urls", namespace="goods")),
+	url(r"^commons/", include("commons.urls", namespace="commons")),
+	url(r"^stores/", include("stores.urls", namespace="stores")),
 ]
