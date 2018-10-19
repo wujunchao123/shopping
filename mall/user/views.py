@@ -27,6 +27,7 @@ def user_login(request):
             return render(request, "user/login.html", {"error_code": 3, "msg": "用户名称或者密码错误，请重新登录"})
 
 
+
 # 用户注册
 def register(request):
     if request.method == "GET":
@@ -36,6 +37,8 @@ def register(request):
         password = request.POST["password"].strip()
         nickname = request.POST["nickname"]
         confirmpwd = request.POST["confirmpwd"].strip()
+        # phone = request.POST["phone"]
+
 
         # 两次密码判断
         if password != confirmpwd:
@@ -58,7 +61,7 @@ def register(request):
                 return render(request, "user/register.html", {"error_code": 3, "msg": "该用户昵称已经存在，请重新输入"})
             except:
                 # 保存用户信息
-                user = User.objects.create_user(username=username, password=password)
+                user = User.objects.create_user(username=username, password=password,)
                 userInfo = models.UserInfo(nickname=nickname, user=user)
 
                 user.save()
@@ -67,7 +70,8 @@ def register(request):
                 return render(request, "user/login.html", {"error_code": 1, "msg": "用户注册成功，请登录"})
 
 
+
 # 用户退出
 def user_logout(request):
     logout(request)
-    return render(request, "user/login.html",{"error_code": 4, "msg": "退出成功，请重新登录"})
+    return render(request, "user/login.html", {"error_code": 4, "msg": "退出成功，请重新登录"})
